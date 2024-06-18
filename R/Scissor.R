@@ -76,7 +76,7 @@ Scissor <- function(bulk_dataset, sc_dataset, phenotype, tag = NULL,
         network[which(network != 0)] <- 1
 
         dataset0 <- cbind(bulk_dataset[common,], sc_exprs[common,])         # Dataset before quantile normalization.
-        dataset1 <- normalize.quantiles(dataset0)                           # Dataset after  quantile normalization.
+        dataset1 <- normalize.quantiles(as.matrix(dataset0))                           # Dataset after  quantile normalization.
         rownames(dataset1) <- rownames(dataset0)
         colnames(dataset1) <- colnames(dataset0)
 
