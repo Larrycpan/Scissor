@@ -60,10 +60,10 @@ Scissor <- function(bulk_dataset, sc_dataset, phenotype, tag = NULL,
         if (length(common) == 0) {
             stop("There is no common genes between the given single-cell and bulk samples.")
         }
-        if (class(sc_dataset) == "Seurat"){
-            sc_exprs <- as.matrix(sc_dataset@assays$RNA@data)
-            network  <- as.matrix(sc_dataset@graphs$RNA_snn)
-        }else{
+        # if (class(sc_dataset) == "Seurat"){
+            # sc_exprs <- as.matrix(sc_dataset@assays$RNA@data)
+            # network  <- as.matrix(sc_dataset@graphs$RNA_snn)
+        # }else{
             sc_exprs <- as.matrix(sc_dataset)
             Seurat_tmp <- CreateSeuratObject(sc_dataset)
             Seurat_tmp <- FindVariableFeatures(Seurat_tmp, selection.method = "vst", verbose = F)
@@ -71,7 +71,7 @@ Scissor <- function(bulk_dataset, sc_dataset, phenotype, tag = NULL,
             Seurat_tmp <- RunPCA(Seurat_tmp, features = VariableFeatures(Seurat_tmp), verbose = F)
             Seurat_tmp <- FindNeighbors(Seurat_tmp, dims = 1:10, verbose = F)
             network  <- as.matrix(Seurat_tmp@graphs$RNA_snn)
-        }
+        # }
         diag(network) <- 0
         network[which(network != 0)] <- 1
 
